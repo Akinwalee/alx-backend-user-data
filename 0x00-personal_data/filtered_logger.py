@@ -12,7 +12,7 @@ def filter_datum(fields, redaction, message, separator):
     """
 
     pattern = r'(?<={})({}=[^{}]*)(?={})'.format(
-                separator, '|'.join(fields), separator)
+                separator, '|'.join(fields), separator, separator)
     repl = r'\1{}'.format(redaction)
     new_str = re.sub(pattern, repl, message)
 
