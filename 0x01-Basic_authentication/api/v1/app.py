@@ -21,9 +21,12 @@ def validate():
     """
     auth = getenv("AUTH_TYPE") if getenv("AUTH_TYPE") else None
     if auth:
-        from api.v1.auth.auth import Auth
-        from api.v1.auth.basic_auth import BasicAuth
-        auth = BasicAuth() if auth == "basic_auth" else Auth()
+        if auth == "basic_auth":
+            from api.v1.auth.basic_auth import BasicAuth
+            auth = BasicAuth
+        else:
+            from api.v1.auth.auth import Auth
+            auth = Auth()
         exclude = [
                     '/api/v1/status/',
                     '/api/v1/unauthorized/',
