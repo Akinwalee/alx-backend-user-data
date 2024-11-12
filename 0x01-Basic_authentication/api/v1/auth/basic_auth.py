@@ -47,8 +47,8 @@ class BasicAuth(Auth):
         if not details or not isinstance(details, str) or ":" not in details:
             return (None, None)
 
-        uname, pwd = details.split(":", 1)
-        return (uname, pwd)
+        email, pwd = details.split(":", 1)
+        return (email, pwd)
 
     def user_object_from_credentials(
             self, user_email: str, user_pwd: str) -> TypeVar("User"):
@@ -69,5 +69,18 @@ class BasicAuth(Auth):
 
         if not isinstance(user, User) or not user.is_valid_password(user_pwd):
             return None
+
+        return user
+
+    def current_user(
+            self, request=None) -> TypeVar('User'):
+        """
+        Overload current user
+        """
+        header = self.authorization_header(request)
+        base64_header = self.extract_base64_authorization_header(header)
+        decoded = self.decode_base64_authorization_header(base64_header)
+        email, pwd = self.extract_user_credentials(decoded)
+        user = self.user_object_from_credentials(email, pwd)
 
         return user
