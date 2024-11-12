@@ -5,6 +5,7 @@ Authentication Template
 from flask import request
 from typing import List, TypeVar
 
+
 class Auth:
     """
     Basic Authentication
