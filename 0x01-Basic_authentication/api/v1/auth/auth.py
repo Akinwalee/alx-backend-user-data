@@ -22,7 +22,7 @@ class Auth:
         """
         if not path or not excluded_paths:
             return True
-        
+
         path_alt = path if path.endswith("/") else path + "/"
         if path_alt not in excluded_paths:
             return True
