@@ -22,19 +22,13 @@ if auth:
         from api.v1.auth.auth import Auth
         auth = Auth()
 
+
 @app.before_request
 def validate():
     """
     Request validation
     """
-    #auth = getenv("AUTH_TYPE") if getenv("AUTH_TYPE") else None
     if auth:
-    #    if auth == "basic_auth":
-    #        from api.v1.auth.basic_auth import BasicAuth
-    #        auth = BasicAuth()
-    #    else:
-    #        from api.v1.auth.auth import Auth
-    #        auth = Auth()
         exclude = [
                     '/api/v1/status/',
                     '/api/v1/unauthorized/',
