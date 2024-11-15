@@ -13,20 +13,28 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
+auth = getenv("AUTH_TYPE") if getenv("AUTH_TYPE") else None
+if auth:
+    if auth == "basic_auth":
+        from api.v1.auth.basic_auth import BasicAuth
+        auth = BasicAuth()
+    else:
+        from api.v1.auth.auth import Auth
+        auth = Auth()
 
 @app.before_request
 def validate():
     """
     Request validation
     """
-    auth = getenv("AUTH_TYPE") if getenv("AUTH_TYPE") else None
+    #auth = getenv("AUTH_TYPE") if getenv("AUTH_TYPE") else None
     if auth:
-        if auth == "basic_auth":
-            from api.v1.auth.basic_auth import BasicAuth
-            auth = BasicAuth()
-        else:
-            from api.v1.auth.auth import Auth
-            auth = Auth()
+    #    if auth == "basic_auth":
+    #        from api.v1.auth.basic_auth import BasicAuth
+    #        auth = BasicAuth()
+    #    else:
+    #        from api.v1.auth.auth import Auth
+    #        auth = Auth()
         exclude = [
                     '/api/v1/status/',
                     '/api/v1/unauthorized/',
