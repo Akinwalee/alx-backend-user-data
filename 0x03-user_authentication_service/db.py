@@ -12,16 +12,10 @@ from user import Base, User
 class DB:
     """ DB Class for Object Reational Mapping """
 
-<<<<<<< HEAD
-    def __init__(self):
-        """ Constructor Method """
-        self._engine = create_engine("sqlite:///a.db", echo=False)
-=======
     def __init__(self) -> None:
-        """Initialize a new DB instance
+        """Constructor Method
         """
         self._engine = create_engine("sqlite:///a.db", echo=False)
->>>>>>> 816627716e51c5f5afa3c9b8350975557a8dd223
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
